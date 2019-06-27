@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+
+
+
+<div class="container">
+    <h2>Get Doctor patient</h2>
+    <form id="loginform" style="width:400px;">
+        <div class="form-group"   >
+            <label for="doc_username">Doctor Username:</label> <input type="text"
+                                                           class="form-control" id="doc_username" placeholder="Enter doc_username"
+                                                           name="doc_username">
+        </div>
+        <input type="button" name="Login" id="getData" value="Search" class = "btn btn-primary" onclick="getDataFromAPI();"/>
+        <div id="postResultDiv" align="center"></div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+    function getDataFromAPI() {
+
+        console.log(doc_username.value);
+        var Url =  "/project/doctorpatients/" + doc_username.value ;
+        console.log(Url);
+        var myWindow =
+            window.open("", "_blank", "toolbar=yes," +
+                "scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+
+
+        $.ajax({
+            url: Url,
+            type: "GET",
+            success: function (result) {
+                var tostring = JSON.stringify(result);
+                var Jcontent = JSON.parse(tostring);
+                console.log(tostring);
+                $.each(Jcontent, function () {
+                    myWindow.document.write("<p> <h1> Patient:</h1></p>");
+                    myWindow.document.write("<p>" +"Name:"+this.name + "</p>");
+                    myWindow.document.write("<p>" +"Email:"+this.email + "</p>");
+                    myWindow.document.write("<p>" +"Contact:"+this.contact + "</p>");
+                    myWindow.document.write("<p>" +"Age:"+this.age + "</p>");
+                    console.log(this.username);
+                    $("#postResultDiv").html(
+                        "Doctor Found");
+                });
+
+            }, error: function (jqXHR, textStatus, errorThrown) {
+                $("#postResultDiv").html(
+                    "Invalid Doctor username");
+
+            }
+
+        });
+
+    }
+
+</script>
+
+</body>
+</html>

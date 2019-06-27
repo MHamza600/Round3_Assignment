@@ -1,0 +1,152 @@
+<html lang="en" class="gr__getbootstrap_com">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+</head>
+
+<body data-gr-c-s-loaded="true">
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Hospital Website</h5>
+    <a class="btn btn-outline-primary" href="Signup.html">Sign up patient</a>
+</div>
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Info</h1>
+    <p class="lead">Hosiptal with alots of high quality doctors. Extablished in 2001 by Muhammad Hamza. Located in DHA phase 4 , GG block. Contact us via Email Hospital@gamil.com or via phone number 03237899547.</p>
+</div>
+
+<div class="container">
+    <div class="card-deck mb-3 text-center" >
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Get all Doctor list</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>See list of doctors</li>
+                    <li>their specilization</li>
+                    <li>their contact info</li>
+                    <li><a class="text-muted" href="Pagging.html">see data in paging click here</a></li>
+                    <br>
+                </ul>
+                <input type="button" class="btn btn-lg btn-block btn-primary" name="getData" id="getData" value="Get all doctors" onclick="getDataFromAPI();"/>
+            </div>
+        </div>
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">See list of patients</h4>
+            </div>
+            <div class="card-body">
+                <br>
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>See list of patient</li>
+                    <li>daigonosed by specific doctor</li>
+                    <li>their contact info</li>
+                    <li>their condition</li>
+                </ul>
+                <a href="GetPatients.html" class= "btn btn-lg btn-block btn-primary" role="button">See Patients</a>
+            </div>
+        </div>
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Add daigonse</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mt-3 mb-4">
+                    <br>
+                    <li>Add daigonse to patient</li>
+                    <li>list of medicine</li>
+                    <li>list of precautions</li>
+                    <li>by adding doctor and patient id</li>
+                </ul>
+                <a href="AddDaigonse.html" class= "btn btn-lg btn-block btn-primary" role="button">Add Daigonose</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                <img class="mb-2" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+                <small class="d-block mb-3 text-muted">© 2017-2018</small>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Features</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Cool stuff</a></li>
+                    <li><a class="text-muted" href="#">Random feature</a></li>
+                    <li><a class="text-muted" href="#">Team feature</a></li>
+                    <li><a class="text-muted" href="#">Stuff for developers</a></li>
+                    <li><a class="text-muted" href="#">Another one</a></li>
+                    <li><a class="text-muted" href="#">Last time</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Resources</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Resource</a></li>
+                    <li><a class="text-muted" href="#">Resource name</a></li>
+                    <li><a class="text-muted" href="#">Another resource</a></li>
+                    <li><a class="text-muted" href="#">Final resource</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>About</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Team</a></li>
+                    <li><a class="text-muted" href="#">Locations</a></li>
+                    <li><a class="text-muted" href="#">Privacy</a></li>
+                    <li><a class="text-muted" href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+<script>
+    function getDataFromAPI() {
+        var myWindow =
+            window.open("", "_blank", "toolbar=yes," +
+                "scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+        $.ajax({
+            url: "/project/getalldoc",
+            type: "GET",
+            success: function (result) {
+                var tostring = JSON.stringify(result);
+                console.log(tostring);
+                var Jcontent = JSON.parse(tostring);
+                $.each(Jcontent, function () {
+                    myWindow.document.write("<p> <h1> Doctors:</h1></p>");
+                    myWindow.document.write("<p>" +"Name: "+this.name + "</p>");
+                    myWindow.document.write("<p>" +"Email: "+this.email + "</p>");
+                    myWindow.document.write("<p>" +"Contact: "+this.contact + "</p>");
+                    myWindow.document.write("<p>" +"Age: "+this.age + "</p>");
+                    myWindow.document.write("<p>" +"Specialization: "+this.specialization + "</p>");
+                    myWindow.document.write("<p>" +"Education: "+this.education + "</p>");
+                    console.log(this.username);
+                });
+
+            }, error: function (jqXHR, textStatus, errorThrown) {
+
+            }
+        });
+    }
+
+</script>
+
+
+</body></html>

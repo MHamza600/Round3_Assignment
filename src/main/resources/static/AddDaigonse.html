@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SignUp Doc</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
+    <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+</head>
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+<div class="container">
+    <h2>Add daigonose</h2>
+    <form id="SignUp-Doctor"  style="width:400px;">
+        <div class="form-group">
+            <label for="doc_username">Doctor Name:</label> <input type="text" size="35"
+                                                   class="form-control input-sm" id="doc_username" placeholder="Enter doc_username"
+                                                   name="doc_username">
+        </div>
+        <div class="form-group">
+            <label for="pat_username">patient name:</label> <input type="text"
+                                                       class="form-control input-sm" id="pat_username" placeholder="Enter pat_username"
+                                                       name="pat_username">
+        </div>
+
+        <div class="form-group">
+            <label for="instructions">Instruction:</label> <input type="text"
+                                                         class="form-control input-sm" id="instructions" placeholder="Enter instructions"
+                                                         name="instructions">
+        </div>
+        <div class="form-group">
+            <label for="medicine">Medicine:</label> <input type="text"
+                                                           class="form-control input-sm" id="medicine" placeholder="Enter medicine"
+                                                           name="medicine">
+        </div>
+
+
+        <div class="form-group">
+            <label for="ward">ward:</label> <input type="text"
+                                                           class="form-control input-sm" id="ward" placeholder="Enter ward"
+                                                           name="ward">
+        </div>
+
+        <input type="button" name="Signup" id="Signup" value="Add Daigonose" class = "btn btn-primary" onclick=" postDataFromAPI();"/>
+        <div id="postResultDiv" align="center"></div>
+    </form>
+</div>
+
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+<script>
+
+    function postDataFromAPI() {
+        console.log(doc_username.value);
+        console.log(pat_username.value);
+        var Url =  "/project/add_daigonos/" + doc_username.value +"/" + pat_username.value;
+        console.log(Url);
+
+
+        var modelObj = {
+            instruction: $("#instructions").val(),
+            medcine: $("#medicine").val(),
+            ward: $("#ward").val()
+
+        };
+        var data1 = JSON.stringify(modelObj);
+        console.log(data1);
+
+        $.ajax({
+            type: "POST",
+            url: Url,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify(modelObj),
+            dataType: 'json',
+            success: function (result) {
+                var tostring = JSON.stringify(result);
+                var Jcontent = JSON.parse(tostring);
+                $("#postResultDiv").html(
+                    Jcontent.response);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $("#postResultDiv").html(
+                    "Invalid Username of doctor or patient");
+            }
+
+        });
+    }
+</script>
+
+</body>
+</html>
